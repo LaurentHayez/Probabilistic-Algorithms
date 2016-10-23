@@ -1,0 +1,319 @@
+\documentclass[fontsize=12pt, usenames, dvipsnames, headinclude, headsepline, footinclude, footsepline]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx, wrapfig}
+\usepackage{lmodern}
+\usepackage{color, colortbl}
+\usepackage{xcolor}
+\usepackage{amsmath, amssymb, mathrsfs, amsthm, thmtools, MnSymbol}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{pgf, pgfplots, tikz, pst-solides3d}
+\usetikzlibrary{cd} %To draw commutative diagrams
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes}
+\usetikzlibrary{lindenmayersystems, arrows.meta}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{automata}
+\usepackage{scrlayer-scrpage}  % header and footer for KOMA-Script
+\usepackage{hyperref}
+\usepackage{todonotes}
+\usepackage{listings}
+\usepackage[inline]{enumitem}
+\usepackage[francais]{babel}
+
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}} 
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\T}{\mathcal{T}}
+\renewcommand{\P}{\mathbb{P}}
+\renewcommand{\S}{\mathbb{S}}
+\newcommand{\bw}{\bigwedge}
+\newcommand{\Fa}{\F(A)} 
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+\renewcommand{\emph}{\textbf}
+\newcommand{\im}{\mathrm{im}}
+\newcommand{\ov}[1]{\overline{#1}}
+
+\DeclareMathOperator{\rk}{rk}
+
+\synctex=1
+
+%°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°%
+%----Définition de l'environnement listings----%
+%°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°%
+\lstset{language=Matlab,%
+    basicstyle=\scriptsize,
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{Fuschia},
+    commentstyle=\color{ForestGreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    numberstyle={\tiny \color{black}},% size of the numbers
+    numbersep=9pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break, if},emphstyle=[1]\color{red}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+}
+\renewcommand{\lstlistingname}{Code}
+
+
+%%%%%%%%	Définitions des environnements de théorèmes	%%%%%%%%
+%----- ENVIRONNEMENT POUR LES EXERCICES ----%
+\declaretheoremstyle[
+  spaceabove=0pt, spacebelow=0pt, headfont=\normalfont\bfseries\scshape,
+    notefont=\mdseries, notebraces={(}{)}, headpunct={. }, headindent={},
+    postheadspace={ }, postheadspace=4pt, bodyfont=\normalfont\itshape
+]{defstyle}
+
+\declaretheorem[style=defstyle, title=Exercise]{exo}
+%________________________________________________________
+
+
+
+%----- ENVIRONNEMENT POUR LES PREUVES ----%
+\declaretheoremstyle[
+  spaceabove=0pt, spacebelow=0pt, headfont=\normalfont\bfseries\scshape,
+    notefont=\mdseries, notebraces={(}{)}, headpunct={. }, headindent={},
+    postheadspace={ }, postheadspace=4pt, bodyfont=\normalfont, 
+    mdframed={
+      leftmargin=15,
+      rightmargin=15,
+      hidealllines=true,
+      font=\small
+   }
+]{preuvestyle}
+
+\declaretheorem[style=preuvestyle, numbered = no, title=Solution, qed=\qedsymbol]{sol}
+
+%________________________________________________________
+
+
+\addtokomafont{disposition}{\normalfont\bfseries}
+
+\title{\normalfont{\bfseries{Probabilistic Algorithms: Homework 1}}}
+\author{Laurent \textsc{Hayez}}
+\date{\today}
+
+\clearpairofpagestyles                 % deletes header/footer
+\pagestyle{scrheadings}           % use following definitions for header/footer
+% definitions/configuration for the header
+\rohead[Université de \textsc{Neuchâtel}]{Université de \textsc{Neuchâtel}}
+\rehead[Université de \textsc{Neuchâtel}]{Université de \textsc{Neuchâtel}}        % equal page, right position (inner) 
+\lohead[Laurent \textsc{Hayez}]{Laurent \textsc{Hayez}}        % odd   page, left  position (inner) 
+\lehead[Laurent \textsc{Hayez}]{Laurent \textsc{Hayez}} % equal page, left (outer) position
+% definitions/configuration for the footer
+\lefoot[Probabilistic Algorithms: Homework 1]{Probabilistic Algorithms: Homework 1}
+\lofoot[Probabilistic Algorithms: Homework 1]{Probabilistic Algorithms: Homework 1}
+\refoot[page \pagemark]{page \pagemark}
+\rofoot[page \pagemark]{page \pagemark}
+
+% for compatibility stuff
+\pgfplotsset{compat=1.12}
+
+
+\begin{document}
+
+
+\renewcommand{\labelitemi}{\textbullet}
+
+
+
+\maketitle
+
+
+
+
+\begin{exo}
+  Consider the quarter circle of radius 1 inside the square of edge 1 (see the figure)
+  \begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[scale=1.5]
+      \fill[color=gray!60] (0,0) -- (1,0) arc (0:90:1) -- cycle;
+      \draw (0,0) rectangle (1,1);
+      \draw (0,0) -- (1,0) arc (0:90:1) -- cycle;
+      \draw (0,0) node[below left]{$(0,0)$}; \draw (1,0) node[below right]{$(1,0)$}; \draw (0,1) node[above
+      left]{$(0,1)$}; \draw (1,1) node[above right]{$(1,1)$}; 
+    \end{tikzpicture}
+    \caption{Quarter circle inside unit square}
+    \label{fig:1}
+  \end{figure}
+  
+  \begin{enumerate}
+  \item Consider the following experiment: select randomly a point inside the unit square (i.e. generate a
+    tuple $(x,y)$ from the uniform distribution on $[0, 1] \times [0, 1]$). What is the probability that such a point,
+    randomly generated, falls inside the quarter circle?
+    
+    \begin{sol}
+      The area of the unit square is $\mathcal{A}_1 := 1^2 = 1$ and the area of the quarter disk is
+      $\mathcal{A}_2 := \frac{\pi}{4}$. Let $(x,y) \in [0,1]^2$ be randomly generated from the uniform
+      distribution. Call $C$ the quarter disk of radius 1 in the unit square, then
+      \[ \P[(x,y) \in C] = \frac{\mathcal{A}_2}{\mathcal{A}_1} = \frac{\frac{\pi}{4}}{1} = \frac{\pi}{4}. \qedhere\] 
+    \end{sol}
+
+    
+  \item Based on the answer for question 1., write a MatLab function \texttt{pi\_estimate(N)} that calculates an
+    estimate of $\pi$ using $N$ trials of this experiment.
+
+    \begin{sol}\hfill\\
+      \lstinputlisting[firstline=1, lastline=19]{pi_estimate.m}
+    \end{sol}
+
+    
+  \item For a fixed $N$, call the \texttt{pi\_estimate()} function $100$ times and calculates, based on the vector of $100$
+    estimates for $\pi$, the following values: the minimum estimate ($\pi_{min}$), the maximum estimate ($\pi_{max}$), the
+    average estimate ($\pi_{mean}$), the standard deviation of estimates ($\Delta \pi$).
+
+    \begin{sol}
+      We use the following script ($n$ was replaced by $100$, $1000$, $\ldots$, $10000000$ for point 4.
+\begin{lstlisting}
+N = 100; n = 100;
+% creates a 1xn matrix with an estimate of pi using N approx
+estimate = arrayfun(@pi_estimate, repmat(N, 1, n));
+minn = min(estimate); maxx = max(estimate); 
+meann = mean(estimate); stdd = std(estimate);
+\end{lstlisting}
+    \end{sol}
+
+    
+  \item Fill the following table:\hfill\\
+    \begin{center}
+      \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        $N$      &  $\pi_{min}$  &  $\pi_{max}$  &  $\pi_{mean}$ &  $\Delta \pi$  \\\hline
+        100      &              &              &              &  \\\hline
+        1000     &              &              &              &  \\\hline
+        10000    &              &              &              &  \\\hline
+        100000   &              &              &              &  \\\hline
+        1000000  &              &              &              &  \\\hline
+        10000000 &              &              &              &  \\\hline
+      \end{tabular}
+    \end{center}
+
+
+    \begin{sol}\hfill\\
+      \begin{center}
+        \begin{tabular}{|c|c|c|c|c|}
+          \hline
+          $N$      &  $\pi_{min}$  &  $\pi_{max}$  &  $\pi_{mean}$ &  $\Delta \pi$  \\\hline
+          100      &    2.72      &     3.44     &    3.1344    &   0.1524        \\\hline
+          1000     &    2.36      &     3.60     &    3.1399    &   0.1632        \\\hline
+          10000    &    2.36      &     3.72     &    3.1401    &   0.1658        \\\hline
+          100000   &    2.32      &     3.80     &    3.1416    &   0.1639        \\\hline
+          1000000  &    2.24      &     3.84     &    3.1418    &   0.1641        \\\hline
+          10000000 &    2.28      &     3.88     &    3.1415    &   0.1642        \\\hline
+        \end{tabular}
+      \end{center}
+
+    \end{sol}
+
+  \end{enumerate}
+\end{exo}
+
+
+
+\begin{exo}
+  Consider a two-sided error Monte-Carlo algorithm which may return two out- puts (decisions), 
+  
+  \[
+    \begin{cases}
+      \text{"yes"},& P(\text{"yes" is wrong}) = \epsilon < 1/2 \\
+      \text{"no"},& P(\text{"no" is wrong}) = \epsilon < 1/2.
+    \end{cases}
+  \] 
+  Suppose that this algorithm is running 10 times on the same input and generate the following sequence of
+  decisions: "yes", "no", "no", "yes", "yes", "yes", "no", "no", "yes", "yes".  
+  \begin{enumerate}
+  \item Propose a rule that allows the user to choose the "right" decision after $N$ trials on the same
+    input. What gives your rule for this particular case ($N = 10$) ? 
+
+    \begin{sol}
+      Let "yes" = 1, "no" = 2 and let $e_i \in \{1, 2\}$ represent the output of the algorithm when it is run
+      for the $i$-th time. 
+      \[e_i  =
+        \begin{cases}
+          1 & \text{if output = "yes"},\\
+          2 & \text{if output = "no"}.
+        \end{cases}
+      \]
+      Compute 
+      \[ S := \sum_{i=1}^{N}(-1)^{e_i}. \]
+      If $S > 0$ then return "no", else if $S < 0$ return "yes", else return "yes" or "no" chosen uniformly at
+      random. 
+
+      The probability that the answer returned after $N$ rounds is wrong is 
+      \[ \epsilon^{\text{number of "yes"}} \text{ or } \epsilon^{\text{number of "no"}}, \]
+      hence by choosing the output that appears the most during the $N$ rounds, we ensure that the probability
+      of choosing the wrong output is minimal. If we have the same number of "yes" and "no", then we choose
+      the output uniformly at random, because the probability of choosing the wrong output is the same whether
+      we choose "yes" or "no".
+    \end{sol}
+
+  \item If $P(\text{"yes"is wrong}) \neq  P(\text{"no"is wrong})$, do you think you must modify the rule ?
+
+    \begin{sol}
+      Suppose that $\P[\text{"yes" is wrong}] = \epsilon_1 \leq 1$ and
+      $\P[\text{"no" is wrong}] = \epsilon_2 \leq 1$. The rule becomes: compute
+      $a := \epsilon_1^{\text{number of "yes"}}$ and $b := \epsilon_2^{\text{number of "no"}}$. If $a < b$
+      then return "yes", else if $b < a$ then return "no", else return "yes" or "no" uniformly at random.
+      
+      This ensures that we choose the ouput with which the probability of being wrong is the smallest.
+    \end{sol}
+  \end{enumerate}
+
+\end{exo}
+
+
+\begin{exo}
+  Suppose we have a random number generator that, at each call, returns one of the two values $\{a, b\}$ with a
+  probability of $0.5$. Propose a method of how to use this generator to get uniform numbers on $(0, 1)$.
+\end{exo}
+
+\begin{sol}
+  We know that every real number has a binary representation, and we know that there is a bijection between
+  $\R$ and $(0,1)$, which is given by 
+  \[
+    \begin{array}{c c c c}
+      \phi: & (0,1) & \to & \R\\
+      & x & \mapsto & \tan\left(\pi x - \frac{\pi}{2}\right)
+    \end{array}
+  \]
+  and its inverse given by
+  \[
+    \begin{array}{c c c c}
+      \phi^{-1} = \psi: & \R & \to & (0,1)\\
+      & x & \mapsto & \frac{1}{\pi}\left(\arctan(x) + \frac{\pi}{2}\right)
+    \end{array}
+  \]
+  Let us identify $a$ with $0$ and $b$ with $1$, and let $l \in \N$ be the seed of the generator. We start by
+  generating a sequence of $l$ $0$s and $1$s, then we get the decimal representation of the generated
+  sequence, which we call $m_1 \in \Z$ (the numbers are in $\Z$ because we used signed binary
+  representation). We store $n_1 = m_1 \pmod {2^{31}-1} \in \N$ and we return $\psi(m_1) \in (0,1)$. We then generate
+  a sequence of length $n_1$ which gives us $m_2 \in \Z$ in decimal representation. We store
+  $n_2 = m_2 \pmod{2^{31} -1} \in \N$ and return $\psi(m_2) \in (0,1)$. We continue in this fashion to generate random numbers
+  in $(0,1)$.
+
+  We store numbers $\pmod{2^{31} - 1}$ to prevent generating arbitrary big numbers which can't be represented
+  by a computer.
+\end{sol}
+
+
+	
+\end{document}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t 
+%%% End:
