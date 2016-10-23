@@ -1,5 +1,15 @@
 function x = simplex( c, A, b )
-%SIMPLEX returns the optimal solution d*
+%SIMPLEX returns the optimal solution d* to the optimization problem Ad <= b
+%It implements the simplex algorithm, which was first proposed by Dantzig
+%We have an objective function L(x) = c_1x_1 + c_2x_2 + ... + c_Nx_N + theta
+%which can also be written as L(x) = c*x + theta. L(x) has to be minimized.
+%In this implementation, theta=0 (otherwise we simply need one more parameter).
+% Input:
+%   c: Vector in R^N corresponding to the coefficients of the function L(x)
+%   A: Matrix in R^(MxN) corresponding to the linear system to be solved
+%   b: 'solutions' (or bounds) of the the linear system Ax <= b
+% Output:
+%   x: optimal solution to the linear system Ax <= b
 
 % Get m and n (dimensions)
 m = size(b, 1);
