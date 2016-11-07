@@ -25,7 +25,7 @@ epsilon = 0.0001;
 c = 5000;
 points = rand(p+1, p).*c - (c / 2);
 
-x = 
+x = L(points)
 
 
 
