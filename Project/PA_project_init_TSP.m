@@ -8,7 +8,7 @@ addpath(genpath('./'));
 disp('Initializing TSP problem...');
 
 % generate the distance matrix for the TSP problem
-cities = 'TSP_test.txt';
+cities = 'TSP_411.txt';
 
 file = fopen(cities, 'r');
 
