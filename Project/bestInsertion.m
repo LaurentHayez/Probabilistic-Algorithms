@@ -1,4 +1,4 @@
-function [ solution, distance ] = bestInsertion( citiesDistances, citiesCoordinate )
+function [ solution, distance ] = bestInsertion( citiesDistances )
 %BESTINSERTION Solves TSP with best insertion heuristic
 %   input: citiesDistances: nxn matrix containing the distances between all
 %   the cities.
