@@ -25,6 +25,6 @@ disp('Computing distances between cities...');
 citiesDistances = computeDistanceMatrix(citiesCoordinate);
 
 % number of times to run the algorithms
-maxRun = 30;
+maxRun = 100;
 
 disp('End of initialization');
