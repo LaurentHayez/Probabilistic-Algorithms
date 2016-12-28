@@ -7,6 +7,7 @@ function [ solution, distance ] = bestInsertion( citiesDistances )
 %           distance: length of path
 %
 %   detail: solved with the permutations representation
+% See also L.
 
 n = size(citiesDistances, 1);
 
@@ -35,8 +36,7 @@ for c = 3:n-1
 
 end
 
-distance = sum(arrayfun(@(i) citiesDistances(solution(i), ...
-    solution(mod(i,n)+1)), 1:n)); 
+distance = L(solution, citiesDistances); 
 
 end
 
