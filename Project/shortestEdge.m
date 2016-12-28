@@ -28,8 +28,8 @@ end
 
 [sortedEdges, permutationMatrix] = sort([edges(:).len]);
 
-%TODO: create incidence matrix from added edge and create function that
-%checks the conditions to add the edges.
+% sort edges to keep structure
+edges = edges(permutationMatrix);
 
 adjacencyMatrix = zeros(n);
 % degree of each node in the graph
@@ -41,7 +41,7 @@ for i=1:n
     % select next shortest edge
     edgeIsValid = false;
     while(~edgeIsValid)
-        if(nextEdgeCounter > length(sortedEdges))
+        if(nextEdgeCounter > length(edges))
             disp('No more valid edges.');
             break;
         end
@@ -58,6 +58,7 @@ for i=1:n
 end
 
 solution = adjMat2Perm(adjacencyMatrix);
+disp(solution)
 distance = L(solution, citiesDistances);
 
 end
