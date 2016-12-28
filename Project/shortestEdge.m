@@ -35,20 +35,20 @@ adjacencyMatrix = zeros(n);
 % degree of each node in the graph
 nodeDegree = zeros(1, n);
 % next edge in the sorted list of edges
-nextEdgeCntr = 1;
+nextEdgeCounter = 1;
 
 for i=1:n
     % select next shortest edge
     edgeIsValid = false;
     while(~edgeIsValid)
-        if(nextEdge > length(sortedEdges))
+        if(nextEdgeCounter > length(sortedEdges))
             disp('No more valid edges.');
             break;
         end
-        nextEdge = edges(nextEdgeCntr);
+        nextEdge = edges(nextEdgeCounter);
         edgeIsValid = checkConditions(nextEdge, nodeDegree, ...
             adjacencyMatrix);
-        nextEdgeCntr = nextEdgeCntr + 1;
+        nextEdgeCounter = nextEdgeCounter + 1;
     end
     
     nodeDegree(nextEdge.ends) = nodeDegree(nextEdge.ends) + 1;
@@ -57,7 +57,7 @@ for i=1:n
     adjacencyMatrix(nextEdge.ends(2), nextEdge.ends(1)) = 1;
 end
 
-solution = incMat2Perm(adjacencyMatrix);
+solution = adjMat2Perm(adjacencyMatrix);
 distance = L(solution, citiesDistances);
 
 end

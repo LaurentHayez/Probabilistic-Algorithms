@@ -9,6 +9,8 @@ function [ edgeIsValid ] = checkConditions( nextEdge, nodeDegree, ...
 %   output: edgeIsValid: boolean value, true if we can add edge, false
 %   otherwise.
 
+n = size(adjacencyMatrix, 1);
+
 % check degrees
 if(nodeDegree(nextEdge.ends(1)) == 2 || nodeDegree(nextEdge.ends(2)) == 2)
     edgeIsValid = false;

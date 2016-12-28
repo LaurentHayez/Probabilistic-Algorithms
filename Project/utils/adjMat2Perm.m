@@ -15,7 +15,6 @@ solution(2) = neighbours(1);
 for i = 2:n-1
     % find neigbours
     neighbours = find(adjacencyMatrix(solution(i), :) == 1);
-    disp(neighbours)
     if length(neighbours) > 2
         fprintf('Error, something is wrong with the adjacency matrix!');
         return;
