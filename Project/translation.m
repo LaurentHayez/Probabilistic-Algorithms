@@ -1,6 +1,6 @@
-function [ newSolution, energyDifference ] = swap( currentSolution, ...
+function [ newSolution, energyDifference ] = translation( currentSolution, ...
     citiesDistances )
-%SWAP implements the "swap" improvement heuristic
+%TRANSLATION implements the "translation" improvement heuristic
 %   input:  currentSolution: permutation of the cities, which is a current
 %               solution to the TSP problem
 %           citiesDistances: distances between cities
@@ -9,25 +9,37 @@ function [ newSolution, energyDifference ] = swap( currentSolution, ...
 %           energyDifference: difference between new solution distance and
 %               old solution distance
 
-n = length(currentSolution);
+n = size(citiesDistances, 1);
 
-[i, j] = randperm(n, 2);
-
+% determine i and successor
+i = randi(n);
 if (1 <= i && i <= n-1); succI = i + 1; else succI = 1; end
-if (2 <= i && i <= n); predI = i - 1; else predI = n; end
+
+% determine j ~= i and i+, and its predecessor and successor
+j = randi(n);
+while (i == j || succI == j)
+    j = randi(n);
+end
 if (1 <= j && j <= n-1); succJ = j + 1; else succJ = 1; end
 if (2 <= j && j <= n); predJ = j - 1; else predJ = n; end
 
-% swap i and j to obtain newSolution
+% compute translation
 newSolution = currentSolution;
-newSolution([i, j]) = newSolution(fliplr([i, j]));
+if (succI < j)
+    newSolution(succI) = currentSolution(j);
+    newSolution(succI+1:j) = currentSolution(succI:predJ);
+else
+    newSolution(j) = currentSolution(succJ);
+    newSolution(succJ:i-1) = currentSolution(succJ+1:i);
+    newSolution(i) = currentSolution(j);
+end
 
 % compute energy difference 
-if (succI == j)
+if (succI == predJ)
     energyDifference = ...
-        citiesDistances(currentSolution(predI), currentSolution(j)) ...
-        + citiesDistances(currentSolution(i), currentSolution(succJ)) ... 
-        - citiesDistances(currentSolution(predI), currentSolution(i)) ...
+        citiesDistances(currentSolution(i), currentSolution(j)) ...
+        + citiesDistances(currentSolution(succI), currentSolution(succJ)) ... 
+        - citiesDistances(currentSolution(i), currentSolution(succI)) ...
         - citiesDistances(currentSolution(j), currentSolution(succJ));
 elseif (succJ == i)
     energyDifference = ...
@@ -37,11 +49,9 @@ elseif (succJ == i)
         - citiesDistances(currentSolution(i), currentSolution(succI));
 else
     energyDifference = ...
-        citiesDistances(currentSolution(predI), currentSolution(j)) ...
+        citiesDistances(currentSolution(i), currentSolution(j)) ...
         + citiesDistances(currentSolution(j), currentSolution(succI)) ...
-        + citiesDistances(currentSolution(predJ), currentSolution(i)) ...
-        + citiesDistances(currentSolution(i), currentSolution(succJ)) ...
-        - citiesDistances(currentSolution(predI), currentSolution(i)) ...
+        + citiesDistances(currentSolution(predJ), currentSolution(succJ)) ...
         - citiesDistances(currentSolution(i), currentSolution(succI)) ...
         - citiesDistances(currentSolution(predJ), currentSolution(j)) ...
         - citiesDistances(currentSolution(j), currentSolution(succJ));
