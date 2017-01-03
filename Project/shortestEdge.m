@@ -26,10 +26,14 @@ for row = 1:n-1
     end
 end
 
+%disp([edges(:).len]);
+
 [sortedEdges, permutationMatrix] = sort([edges(:).len]);
 
 % sort edges to keep structure
 edges = edges(permutationMatrix);
+
+%disp([edges(:).len]);
 
 adjacencyMatrix = zeros(n);
 % degree of each node in the graph
@@ -58,7 +62,6 @@ for i=1:n
 end
 
 solution = adjMat2Perm(adjacencyMatrix);
-disp(solution)
 distance = L(solution, citiesDistances);
 
 end
