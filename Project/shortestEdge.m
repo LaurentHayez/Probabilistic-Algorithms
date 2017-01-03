@@ -10,7 +10,7 @@ function [ solution, distance ] = shortestEdge( citiesDistances )
 %   structure containing the edges between the different vertices, sort
 %   them, and then create an incidence matrix while adding edges to the
 %   path
-% See also CHECKCONDITIONS, INCMAT2PERM, L.
+% See also CHECKCONDITIONS, ADJMAT2PERM, L.
 
 n = size(citiesDistances, 1);
 
