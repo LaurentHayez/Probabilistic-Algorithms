@@ -54,4 +54,3 @@ if energyDifference > 0 % new solution is not better
 end
 
 end
-
