@@ -1,5 +1,5 @@
-function [ proba ] = metropolis( energyDifference, temperature )
-%METROPOLIS implements the metropolis criterion for accepting a new state
+function [ proba ] = heatBath( energyDifference, temperature )
+%HEATBATH implements the metropolis criterion for accepting a new state
 %in the simulated annealing algorithm.
 %   Input:  - energyDifference: difference of path length between the
 %               current state and the new state
@@ -7,11 +7,7 @@ function [ proba ] = metropolis( energyDifference, temperature )
 %
 %   Output: - proba: probability to accept the new state
 
-if (energyDifference > 0)
-    proba = exp(-energyDifference/temperature);
-else
-    proba = 1;
-end
+proba = 1 / (1 + exp(energyDifference / temperature));
 
 end
 
