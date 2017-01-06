@@ -1,0 +1,126 @@
+\documentclass[a4paper, 11pt]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx, wrapfig}
+\usepackage{geometry}
+\geometry{top=3cm, left = 3cm, right=3cm, bottom=3cm}
+\usepackage{lmodern}
+\usepackage{fancyhdr}
+\usepackage{color, colortbl}
+\usepackage[usenames, svgnames]{xcolor}
+\usepackage{amsmath, amssymb, mathrsfs, amsthm, thmtools}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{pgf, pgfplots, tikz}
+\usepackage{hyperref}
+\usepackage{makeidx}
+\usepackage[inline]{enumitem}
+\usepackage[english]{babel}
+
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}} 
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}} 
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+\renewcommand{\emph}{\textbf}
+
+
+
+%%%%%%%%	Définitions des environnements des exercices	%%%%%%%%
+%----- ENVIRONNEMENT POUR LES EXERCICES ----%
+\declaretheoremstyle[
+  spaceabove=0pt, spacebelow=0pt, headfont=\normalfont\bfseries\scshape,
+    notefont=\mdseries, notebraces={(}{)}, headpunct={. }, headindent={},
+    postheadspace={ }, postheadspace=4pt, bodyfont=\normalfont, %qed=$$,
+    mdframed={
+      leftmargin=-5,
+      rightmargin=-5,
+      hidealllines=true
+   }
+]{defstyle}
+
+\declaretheorem[style=defstyle, title=Exercice]{ex}
+%________________________________________________________
+
+
+%----- ENVIRONNEMENT POUR LES SOLUTIONS ----%
+\declaretheoremstyle[
+  spaceabove=-10pt, spacebelow=0pt, headfont=\normalfont\scshape,
+    notefont=\mdseries, notebraces={(}{)}, headpunct={. }, headindent={},
+    postheadspace={ }, postheadspace=4pt, %bodyfont=\normalfont, 
+    qed=\qedsymbol,
+    mdframed={
+      leftmargin=15,
+      rightmargin=15,
+      hidealllines=true,
+      font=\small
+   }
+]{preuvestyle}
+
+\declaretheorem[style=preuvestyle, numbered=no, title=Solution]{sol}
+
+\synctex=1
+
+\addtokomafont{disposition}{\normalfont\bfseries}
+
+\title{\vspace{-1cm}\normalfont{\bfseries{Probabilistic Algorithms Project \\ {\Large Comparing heuristics for
+      TSP}}}}
+\author{Laurent \textsc{Hayez}}
+\date{\today}% Date de création: 27 mars 2015\\ Dernière modification: \today}
+
+\pagestyle{fancy}
+\fancyhead[L]{Université de Neuchâtel}
+\fancyhead[R]{Laurent Hayez}
+
+\begin{document}
+
+
+\renewcommand{\labelitemi}{\textbullet}
+
+\maketitle
+
+\thispagestyle{fancy}
+
+
+
+\section{Introduction}
+
+The Traveling Salesman Problem (TSP) is an old problem, having written sources as old as almost 300 years. The
+problem consists of a person needing to visit $n$ cities, but with constraints. The constraints are that the
+person must visit each of the $n$ cities only once, and must do it in an optimal way, i.e., the total
+traveled distance must be the smallest possible.
+
+This problem is hard to solve deterministically. Indeed, to find the optimal solution, we would need to test
+every possible path in the graph composed of the $n$ cities, and the paths between them. If there are $n$
+cities, the number of paths to test is $n!$, and the computations become impractical when $n$ is as small as
+$20$. 
+
+This hardness justifies the need to use heuristics, and probabilistic algorithms to solve the problem. Of
+course, there is no guarantee that we will find the optimal path, but the heuristics return good enough
+paths. The goal of this project is to compare a few heuristics that can be used to solve the TSP. We will
+compare the best solutions found by each algorithms, the differences for the routes, the performance of the
+algorithms, and pairwise statistical comparison of the algorithms. 
+
+\section{Comparison of loss values}
+
+Denote by $\mathcal{L}$ the sequence $\{L(\sigma_1^{\ast}), \ldots, L(\sigma_m^{\ast})\}$ of the best
+solutions generated after calling each implemented algorithms $m = 30$ times. We will present tables showing
+the minimum of $\mathcal{L}$, the maximum, the average and the $95\%$ condidence interval for this average for
+each implemented algorithms.
+
+
+
+
+	
+\end{document}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t 
+%%% End:
