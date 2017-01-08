@@ -11,7 +11,10 @@ function [ newSolution, energyDifference ] = swap( currentSolution, ...
 
 n = length(currentSolution);
 
-[i, j] = randperm(n, 2);
+permutation = randperm(n, 2);
+
+i = permutation(1);
+j = permutation(2);
 
 if (1 <= i && i <= n-1); succI = i + 1; else succI = 1; end
 if (2 <= i && i <= n); predI = i - 1; else predI = n; end
@@ -50,7 +53,7 @@ end
 % accept or reject new solution
 if energyDifference > 0 % new solution is not better
     newSolution = currentSolution;
-    disp('New solution is not better -> rejecting');
+    %disp('New solution is not better -> rejecting');
 end
 
 end

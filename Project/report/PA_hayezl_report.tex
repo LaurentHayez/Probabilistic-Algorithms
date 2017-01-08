@@ -8,6 +8,7 @@
 \usepackage{lmodern}
 \usepackage{fancyhdr}
 \usepackage{color, colortbl}
+\usepackage{booktabs}
 \usepackage[usenames, svgnames]{xcolor}
 \usepackage{amsmath, amssymb, mathrsfs, amsthm, thmtools}
 \usepackage[framemethod=tikz]{mdframed}
@@ -76,6 +77,8 @@
 \fancyhead[L]{Université de Neuchâtel}
 \fancyhead[R]{Laurent Hayez}
 
+
+
 \begin{document}
 
 
@@ -111,6 +114,47 @@ Denote by $\mathcal{L}$ the sequence $\{L(\sigma_1^{\ast}), \ldots, L(\sigma_m^{
 solutions generated after calling each implemented algorithms $m = 30$ times. We will present tables showing
 the minimum of $\mathcal{L}$, the maximum, the average and the $95\%$ condidence interval for this average for
 each implemented algorithms.
+
+\begin{table}[h]
+\centering
+\caption{Construction heuristics}
+\label{table:construction-heuristics}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+Algorithms     & $\min(\mathcal{L})$ & $\max(\mathcal{L})$ & $\mathrm{mean}(\mathcal{L})$ & Confidence interval at 95\% \\ \midrule
+best insertion & 1470.1821           & 1563.2285           & 1516.5628                    & {[}1506.6866, 1526.4391{]}  \\
+shortest edge  & 1584.0766           & 1753.079            & 1671.8119                    & {[}1656.668, 1686.9558{]}   \\ \bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\centering
+\caption{Improvement heuristics}
+\label{table:improvement-heuristics}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+Algorithms  & $\min(\mathcal{L})$ & $\max(\mathcal{L})$ & $\mathrm{mean}(\mathcal{L})$ & Confidence interval at 95\% \\ \midrule
+swap        & 1459.2188           & 1557.0646           & 1506.8777                    & [1497.346, 1516.4094]  \\
+translation & 1443.1734           & 1513.6743           & 1483.3338                    & [1476.954, 1489.7137]   \\
+inversion   & 1441.9932           & 1538.6809           & 1486.538                     & [1477.6003, 1495.4757]  \\
+mixed       & 1417.9906           & 1497.824            & 1457.8618                    & [1451.398, 1464.3255]   \\ \bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\centering
+\caption{Simulated annealing}
+\label{table:simulated annealing}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+Algorithms  & $\min(\mathcal{L})$ & $\max(\mathcal{L})$ & $\mathrm{mean}(\mathcal{L})$ & Confidence interval at 95\% \\ \midrule
+Metropolis  & 1484.3271           & 1570.1874           & 1520.7171                    & [1512.8956, 1528.5386]  \\
+Heat Bath   & 1494.7218           & 1571.5438            & 1524.188                    & [1517.14, 1531.236]   \\ \bottomrule
+\end{tabular}
+\end{table}
+
 
 
 

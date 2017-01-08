@@ -54,7 +54,7 @@ while (~stop)
     
     % check stop (if the 50 last path lengths are really close)
     stop = ((length(distances) > 50) && ...
-        abs(std(distances(ends-50:ends))) < 0.00001);
+        abs(std(distances(end-50:end))) < 0.00001);
     
     distances = [distances distance];
     
