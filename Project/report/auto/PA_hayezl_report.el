@@ -49,7 +49,19 @@
     "K")
    (LaTeX-add-labels
     "table:construction-heuristics"
-    "table:improvement-heuristics"
-    "table:simulated annealing"))
+    "table:greedy-local-search"
+    "table:simulated-annealing-metropolis"
+    "table:simulated-annealing-heatbath"
+    "sec:trace-best-solution"
+    "fig:solpath-bestinsertion"
+    "fig:solpath-GLS"
+    "fig:solpath-SA-metropolis"
+    "fig:solpath-SA-heatBath"
+    "sec:performance-plots"
+    "fig:perfPlot-GLS"
+    "fig:perfPlot-SA-metropolis"
+    "fig:perfPlot-SA-heatBath"
+    "sec:pairw-comp-algor"
+    "table:pairwise-comparison"))
  :latex)
 

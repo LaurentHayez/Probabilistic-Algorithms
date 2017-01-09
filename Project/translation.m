@@ -57,11 +57,5 @@ else
         - citiesDistances(currentSolution(j), currentSolution(succJ));
 end
 
-% accept or reject new solution
-if energyDifference > 0 % new solution is not better
-    newSolution = currentSolution;
-    %disp('New solution is not better -> rejecting');
-end
-
 end
 

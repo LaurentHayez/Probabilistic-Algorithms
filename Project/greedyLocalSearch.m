@@ -26,7 +26,7 @@ for i = 1:nbMoves
     [newConfig, energyDifference] = smallMove(solution, citiesDistances);
     if (energyDifference < 0)
         solution = newConfig;
-        distance = L(solution, citiesDistances);
+        distance = distance + energyDifference;
     end
     CBD(i) = distance;
 end

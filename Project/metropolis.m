@@ -8,7 +8,7 @@ function [ proba ] = metropolis( energyDifference, temperature )
 %   Output: - proba: probability to accept the new state
 
 if (energyDifference > 0)
-    proba = exp(-energyDifference/temperature);
+    proba = exp(- energyDifference / temperature);
 else
     proba = 1;
 end
