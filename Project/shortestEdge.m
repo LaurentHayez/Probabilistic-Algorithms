@@ -8,7 +8,7 @@ function [ solution, distance ] = shortestEdge( citiesDistances )
 %
 %   detail: for this problem, the simplest approach is to create a
 %   structure containing the edges between the different vertices, sort
-%   them, and then create an incidence matrix while adding edges to the
+%   them, and then create an adjacence matrix while adding edges to the
 %   path
 % See also CHECKCONDITIONS, ADJMAT2PERM, L.
 
